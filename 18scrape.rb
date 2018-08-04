@@ -7,20 +7,22 @@ query = "lim=20\&out=json\&word=#{URI.encode("異世界")}" #日本語や記号�
 sleepSec = 1 #小数も設定可能
 useTitle = false #trueならディレクトリ名が小説タイトルに
 #変更部分終わり
-apiUrl = "https://api.syosetu.com/novelapi/api/?minlen=1\&of=n-ga-t\&#{query}"
+apiUrl = "https://api.syosetu.com/novel18api/api/?minlen=1\&of=n-ga-t\&#{query}"
 
 def openAndWrite(ncode, index, title)
   charset = nil
-  html = open('https://ncode.syosetu.com/' + ncode + '/' + index) do | page |
+  html = open('https://novel18.syosetu.com/' + ncode + '/' + index, {'Cookie' =>'over18=yes'}) do | page |
     charset = page.charset
     page.read
   end
   p 'https://ncode.syosetu.com/' + ncode + '/' + index
   doc = Nokogiri::HTML.parse(html, nil, charset)
-  File.open("dl/#{title}/#{index}p.txt", "a") do | textfile |
-    textfile.puts(doc.xpath('//p[@class="novel_subtitle"]').inner_text)
-    textfile.puts(doc.xpath('//div[@id="novel_honbun"]').inner_text)
-  end
+  # File.open("dl/#{title}/#{index}p.txt", "a") do | textfile |
+  #   textfile.puts(doc.xpath('//p[@class="novel_subtitle"]').inner_text)
+  #   textfile.puts(doc.xpath('//div[@id="novel_honbun"]').inner_text)
+  # end
+  puts(doc.xpath('//p[@class="novel_subtitle"]').inner_text)
+  puts(doc.xpath('//div[@id="novel_honbun"]').inner_text)
 end
 
 json = JSON.parser.new(open(apiUrl).read)
