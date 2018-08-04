@@ -3,7 +3,7 @@ require 'open-uri'
 require 'json'
 
 #変更部分
-query = "lim=20\&out=json\&word=#{URI.encode("エロ")}\&order=lengthasc" #日本語や記号は#{URI.encode(" ")}で囲ってください
+query = "lim=20\&out=json\&word=#{URI.encode("エロ")}" #日本語や記号は#{URI.encode(" ")}で囲ってください
 sleepSec = 1 #小数も設定可能
 useTitle = false #trueならディレクトリ名が小説タイトルに
 #変更部分終わり
