@@ -17,12 +17,10 @@ def openAndWrite(ncode, index, title)
   end
   p 'https://ncode.syosetu.com/' + ncode + '/' + index
   doc = Nokogiri::HTML.parse(html, nil, charset)
-  # File.open("dl/#{title}/#{index}p.txt", "a") do | textfile |
-  #   textfile.puts(doc.xpath('//p[@class="novel_subtitle"]').inner_text)
-  #   textfile.puts(doc.xpath('//div[@id="novel_honbun"]').inner_text)
-  # end
-  puts(doc.xpath('//p[@class="novel_subtitle"]').inner_text)
-  puts(doc.xpath('//div[@id="novel_honbun"]').inner_text)
+  File.open("dl/#{title}/#{index}p.txt", "a") do | textfile |
+    textfile.puts(doc.xpath('//p[@class="novel_subtitle"]').inner_text)
+    textfile.puts(doc.xpath('//div[@id="novel_honbun"]').inner_text)
+  end
 end
 
 json = JSON.parser.new(open(apiUrl).read)
